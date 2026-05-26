@@ -74,7 +74,7 @@ namespace detail
 	{
 		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<3, T, Q> call(vec<3, T, Q> const& x, vec<3, T, Q> const& y)
 		{
-			static_assert(std::numeric_limits<T>::is_iec559, "'cross' accepts only floating-point inputs");
+			static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'cross' accepts only floating-point inputs");
 
 			return vec<3, T, Q>(
 				x.y * y.z - y.y * x.z,
@@ -84,7 +84,7 @@ namespace detail
 
 		GLM_FUNC_QUALIFIER GLM_CONSTEXPR static vec<4, T, Q> call(vec<4, T, Q> const& x, vec<4, T, Q> const& y)
 		{
-			static_assert(std::numeric_limits<T>::is_iec559, "'cross' accepts only floating-point inputs");
+			static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'cross' accepts only floating-point inputs");
 
 			return vec<4, T, Q>(
 				x.y * y.z - y.y * x.z,
@@ -99,7 +99,7 @@ namespace detail
 	{
 		GLM_FUNC_QUALIFIER static vec<L, T, Q> call(vec<L, T, Q> const& v)
 		{
-			static_assert(std::numeric_limits<T>::is_iec559, "'normalize' accepts only floating-point inputs");
+			static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'normalize' accepts only floating-point inputs");
 
 			return v * inversesqrt(dot(v, v));
 		}
@@ -110,7 +110,7 @@ namespace detail
 	{
 		GLM_FUNC_QUALIFIER static vec<L, T, Q> call(vec<L, T, Q> const& N, vec<L, T, Q> const& I, vec<L, T, Q> const& Nref)
 		{
-			static_assert(std::numeric_limits<T>::is_iec559, "'normalize' accepts only floating-point inputs");
+			static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'normalize' accepts only floating-point inputs");
 
 			return dot(Nref, I) < static_cast<T>(0) ? N : -N;
 		}
@@ -151,7 +151,7 @@ namespace detail
 	template<length_t L, typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER T length(vec<L, T, Q> const& v)
 	{
-		static_assert(std::numeric_limits<T>::is_iec559, "'length' accepts only floating-point inputs");
+		static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'length' accepts only floating-point inputs");
 
 		return detail::compute_length<L, T, Q, detail::is_aligned<Q>::value>::call(v);
 	}
@@ -175,14 +175,14 @@ namespace detail
 	template<typename T>
 	GLM_FUNC_QUALIFIER GLM_CONSTEXPR T dot(T x, T y)
 	{
-		static_assert(std::numeric_limits<T>::is_iec559, "'dot' accepts only floating-point inputs");
+		static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'dot' accepts only floating-point inputs");
 		return x * y;
 	}
 
 	template<length_t L, typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER GLM_CONSTEXPR T dot(vec<L, T, Q> const& x, vec<L, T, Q> const& y)
 	{
-		static_assert(std::numeric_limits<T>::is_iec559, "'dot' accepts only floating-point inputs");
+		static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'dot' accepts only floating-point inputs");
 		return detail::compute_dot<vec<L, T, Q>, T, detail::is_aligned<Q>::value>::call(x, y);
 	}
 
@@ -205,7 +205,7 @@ namespace detail
 	template<length_t L, typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER vec<L, T, Q> normalize(vec<L, T, Q> const& x)
 	{
-		static_assert(std::numeric_limits<T>::is_iec559, "'normalize' accepts only floating-point inputs");
+		static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'normalize' accepts only floating-point inputs");
 
 		return detail::compute_normalize<L, T, Q, detail::is_aligned<Q>::value>::call(x);
 	}
@@ -249,7 +249,7 @@ namespace detail
 	template<length_t L, typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER vec<L, T, Q> refract(vec<L, T, Q> const& I, vec<L, T, Q> const& N, T eta)
 	{
-		static_assert(std::numeric_limits<T>::is_iec559, "'refract' accepts only floating-point inputs");
+		static_assert(std::numeric_limits<T>::is_iec559 || GLM_CONFIG_UNRESTRICTED_FLOAT, "'refract' accepts only floating-point inputs");
 		return detail::compute_refract<L, T, Q, detail::is_aligned<Q>::value>::call(I, N, eta);
 	}
 }//namespace glm
